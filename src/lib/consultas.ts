@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 export type Status = "agendada" | "realizada" | "cancelada";
 
@@ -15,8 +16,6 @@ export type Consulta = {
 
 export type Situacao = "atrasada" | "hoje" | "futura" | Status;
 
-const STORAGE_KEY = "consultas.db";
-
 function hoje(): string {
   const d = new Date();
   const mm = String(d.getMonth() + 1).padStart(2, "0");
@@ -30,71 +29,6 @@ function deslocar(dias: number): string {
   const mm = String(d.getMonth() + 1).padStart(2, "0");
   const dd = String(d.getDate()).padStart(2, "0");
   return `${d.getFullYear()}-${mm}-${dd}`;
-}
-
-export function seed(): Consulta[] {
-  return [
-    {
-      id: "1",
-      profissional: "Dra. Mariana Costa",
-      especialidade: "Cardiologista",
-      data: deslocar(-2),
-      hora: "09:00",
-      local: "Clínica Aurora — Sala 3",
-      exigencias: "Levar exame de sangue e eletrocardiograma",
-      status: "agendada",
-    },
-    {
-      id: "2",
-      profissional: "Dr. Carlos Nunes",
-      especialidade: "Dentista",
-      data: deslocar(0),
-      hora: "14:30",
-      local: "Odonto Vida — Av. Paulista, 1200",
-      exigencias: "Não escovar com flúor antes",
-      status: "agendada",
-    },
-    {
-      id: "3",
-      profissional: "Dra. Beatriz Souza",
-      especialidade: "Endocrinologista",
-      data: deslocar(3),
-      hora: "11:30",
-      local: "Hospital Santa Luzia",
-      exigencias: "Jejum de 12 horas",
-      status: "agendada",
-    },
-    {
-      id: "4",
-      profissional: "Rafael Lima",
-      especialidade: "Psicólogo",
-      data: deslocar(6),
-      hora: "08:00",
-      local: "Atendimento online",
-      exigencias: "",
-      status: "agendada",
-    },
-    {
-      id: "5",
-      profissional: "Dra. Fernanda Rocha",
-      especialidade: "Dermatologista",
-      data: deslocar(-10),
-      hora: "15:00",
-      local: "Clínica Derma+",
-      exigencias: "Sem maquiagem",
-      status: "realizada",
-    },
-    {
-      id: "6",
-      profissional: "Dr. Lucas Martins",
-      especialidade: "Ortopedista",
-      data: deslocar(-20),
-      hora: "16:30",
-      local: "Instituto do Movimento",
-      exigencias: "Levar raio-x do joelho",
-      status: "cancelada",
-    },
-  ];
 }
 
 /** Equivalente a calcular_situacao(): só marca atrasada se ainda está 'agendada'. */
@@ -132,41 +66,63 @@ export function rotuloDia(data: string): string {
   return dt.toLocaleDateString("pt-BR", { weekday: "short", day: "2-digit", month: "short" });
 }
 
+/** Consultas da pessoa logada, guardadas no banco de dados. */
 export function useConsultas() {
-  const [consultas, setConsultas] = useState<Consulta[]>([]);
-  const [carregado, setCarregado] = useState(false);
+  const qc = useQueryClient();
 
-  useEffect(() => {
-    try {
-      const bruto = localStorage.getItem(STORAGE_KEY);
-      setConsultas(bruto ? (JSON.parse(bruto) as Consulta[]) : seed());
-    } catch {
-      setConsultas(seed());
-    }
-    setCarregado(true);
-  }, []);
+  const query = useQuery({
+    queryKey: ["consultas"],
+    queryFn: async (): Promise<Consulta[]> => {
+      const { data, error } = await supabase
+        .from("consultas")
+        .select("id, profissional, especialidade, data, hora, local, exigencias, status")
+        .order("data", { ascending: true })
+        .order("hora", { ascending: true });
+      if (error) throw error;
+      return (data ?? []) as Consulta[];
+    },
+  });
 
-  useEffect(() => {
-    if (!carregado) return;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(consultas));
-  }, [consultas, carregado]);
+  const invalidar = () => qc.invalidateQueries({ queryKey: ["consultas"] });
 
-  const criar = useCallback((dados: Omit<Consulta, "id" | "status">) => {
-    setConsultas((atual) => [
-      ...atual,
-      { ...dados, id: crypto.randomUUID(), status: "agendada" },
-    ]);
-  }, []);
+  const criarMut = useMutation({
+    mutationFn: async (dados: Omit<Consulta, "id" | "status">) => {
+      const { data: sessao } = await supabase.auth.getUser();
+      const userId = sessao.user?.id;
+      if (!userId) throw new Error("Sessão expirada");
+      const { error } = await supabase
+        .from("consultas")
+        .insert({ ...dados, status: "agendada", user_id: userId });
+      if (error) throw error;
+    },
+    onSuccess: invalidar,
+  });
 
-  const atualizar = useCallback((id: string, dados: Partial<Consulta>) => {
-    setConsultas((atual) => atual.map((c) => (c.id === id ? { ...c, ...dados } : c)));
-  }, []);
+  const atualizarMut = useMutation({
+    mutationFn: async ({ id, dados }: { id: string; dados: Partial<Consulta> }) => {
+      const { error } = await supabase.from("consultas").update(dados).eq("id", id);
+      if (error) throw error;
+    },
+    onSuccess: invalidar,
+  });
 
-  const excluir = useCallback((id: string) => {
-    setConsultas((atual) => atual.filter((c) => c.id !== id));
-  }, []);
+  const excluirMut = useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await supabase.from("consultas").delete().eq("id", id);
+      if (error) throw error;
+    },
+    onSuccess: invalidar,
+  });
 
-  const restaurar = useCallback(() => setConsultas(seed()), []);
-
-  return { consultas, carregado, criar, atualizar, excluir, restaurar };
+  return {
+    consultas: query.data ?? [],
+    carregado: !query.isLoading,
+    erro: query.error as Error | null,
+    criar: (dados: Omit<Consulta, "id" | "status">) => criarMut.mutate(dados),
+    criarAsync: (dados: Omit<Consulta, "id" | "status">) => criarMut.mutateAsync(dados),
+    atualizar: (id: string, dados: Partial<Consulta>) => atualizarMut.mutate({ id, dados }),
+    atualizarAsync: (id: string, dados: Partial<Consulta>) =>
+      atualizarMut.mutateAsync({ id, dados }),
+    excluir: (id: string) => excluirMut.mutate(id),
+  };
 }
