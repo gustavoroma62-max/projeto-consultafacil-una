@@ -14,7 +14,63 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      consultas: {
+        Row: {
+          created_at: string
+          data: string
+          especialidade: string
+          exigencias: string
+          hora: string
+          id: string
+          local: string
+          profissional: string
+          status: Database["public"]["Enums"]["consulta_status"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          data: string
+          especialidade?: string
+          exigencias?: string
+          hora?: string
+          id?: string
+          local?: string
+          profissional: string
+          status?: Database["public"]["Enums"]["consulta_status"]
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          data?: string
+          especialidade?: string
+          exigencias?: string
+          hora?: string
+          id?: string
+          local?: string
+          profissional?: string
+          status?: Database["public"]["Enums"]["consulta_status"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          id: string
+          nome: string | null
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          nome?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          nome?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +79,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      consulta_status: "agendada" | "realizada" | "cancelada"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +206,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      consulta_status: ["agendada", "realizada", "cancelada"],
+    },
   },
 } as const

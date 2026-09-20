@@ -3,7 +3,7 @@ import { AppHeader } from "@/components/AppHeader";
 import { ConsultaForm } from "@/components/ConsultaForm";
 import { useConsultas } from "@/lib/consultas";
 
-export const Route = createFileRoute("/nova")({
+export const Route = createFileRoute("/_authenticated/nova")({
   head: () => ({
     meta: [
       { title: "Nova consulta — Consultas" },
@@ -17,13 +17,14 @@ export const Route = createFileRoute("/nova")({
         property: "og:description",
         content: "Cadastre profissional, especialidade, data, hora, local e exigências da consulta.",
       },
+      { name: "robots", content: "noindex" },
     ],
   }),
   component: NovaConsulta,
 });
 
 function NovaConsulta() {
-  const { criar } = useConsultas();
+  const { criarAsync } = useConsultas();
   const navigate = useNavigate();
 
   return (
@@ -32,10 +33,10 @@ function NovaConsulta() {
       <main className="mx-auto max-w-2xl px-5 py-8">
         <ConsultaForm
           titulo="Nova consulta"
-          onCancel={() => navigate({ to: "/" })}
-          onSubmit={(v) => {
-            criar(v);
-            navigate({ to: "/" });
+          onCancel={() => navigate({ to: "/agenda" })}
+          onSubmit={async (v) => {
+            await criarAsync(v);
+            navigate({ to: "/agenda" });
           }}
         />
       </main>
