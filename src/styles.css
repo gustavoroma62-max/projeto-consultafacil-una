@@ -80,8 +80,23 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+
+  --brand: oklch(0.483 0.089 180.5);
+  --brand-dark: oklch(0.418 0.073 182);
+  --brand-soft: oklch(0.941 0.053 176);
+  --ink: oklch(0.219 0.006 50);
+  --paper: oklch(0.955 0.017 87);
+  --card-paper: oklch(0.991 0.008 92);
+  --amber: oklch(0.769 0.162 70);
+  --amber-soft: oklch(0.955 0.056 95);
+  --rose: oklch(0.586 0.222 15.5);
+  --rose-soft: oklch(0.928 0.032 15);
+  --sage: oklch(0.51 0.135 125);
+  --sage-soft: oklch(0.966 0.06 121);
+  --muted-ink: oklch(0.536 0.011 60);
+
+  --background: var(--paper);
+  --foreground: var(--ink);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.129 0.042 264.695);
   --popover: oklch(1 0 0);
