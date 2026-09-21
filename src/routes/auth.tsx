@@ -75,9 +75,11 @@ function AuthPage() {
           ? "E-mail ou senha incorretos."
           : /already registered|already exists/i.test(msg)
             ? "Esse e-mail já tem conta. Use a opção de entrar."
-            : /password/i.test(msg) && /short|6/i.test(msg)
-              ? "A senha precisa ter pelo menos 6 caracteres."
-              : msg,
+            : /weak|known to be/i.test(msg)
+              ? "Essa senha é muito comum. Escolha outra, misturando letras, números e símbolos."
+              : /password/i.test(msg) && /short|6/i.test(msg)
+                ? "A senha precisa ter pelo menos 6 caracteres."
+                : msg,
       );
     } finally {
       setOcupado(false);
