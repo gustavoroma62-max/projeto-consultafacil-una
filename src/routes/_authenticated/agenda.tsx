@@ -34,7 +34,7 @@ export const Route = createFileRoute("/_authenticated/agenda")({
 const chip = {
   agendada: "bg-sage-soft text-sage",
   realizada: "bg-brand-soft text-brand-dark",
-  cancelada: "bg-black/5 text-muted-ink",
+  cancelada: "bg-ink/5 text-muted-ink",
   atrasada: "bg-rose-soft text-rose",
 } as const;
 
@@ -87,7 +87,7 @@ function Agenda() {
           </div>
 
           {!carregado ? (
-            <div className="h-36 rounded-[18px] bg-card-paper ring-1 ring-black/5" />
+            <div className="h-36 rounded-[18px] bg-card-paper ring-1 ring-ink/5" />
           ) : proxima ? (
             <div className="relative overflow-hidden rounded-[18px] bg-brand text-card-paper ring-1 ring-brand-dark/30">
               <div className="absolute inset-y-0 right-0 w-1.5 bg-amber" />
@@ -130,7 +130,7 @@ function Agenda() {
               </div>
             </div>
           ) : (
-            <div className="rounded-[18px] bg-card-paper p-7 ring-1 ring-black/5">
+            <div className="rounded-[18px] bg-card-paper p-7 ring-1 ring-ink/5">
               <p className="font-display text-lg font-semibold">Nenhuma consulta futura</p>
               <p className="mt-1 text-sm text-muted-ink">
                 Cadastre uma consulta para vê-la destacada aqui.
@@ -147,8 +147,8 @@ function Agenda() {
             </span>
           </div>
 
-          <div className="overflow-hidden rounded-[16px] bg-card-paper ring-1 ring-black/5">
-            <div className="hidden grid-cols-[1.4fr_1fr_1fr_auto] gap-3 border-b border-black/5 bg-black/[0.02] px-5 py-2.5 text-[11px] font-semibold uppercase tracking-wide text-muted-ink sm:grid">
+          <div className="overflow-hidden rounded-[16px] bg-card-paper ring-1 ring-ink/5">
+            <div className="hidden grid-cols-[1.4fr_1fr_1fr_auto] gap-3 border-b border-ink/5 bg-ink/[0.02] px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-muted-ink sm:grid">
               <span>Profissional</span>
               <span>Data e hora</span>
               <span>Status</span>
@@ -167,7 +167,7 @@ function Agenda() {
                 <div
                   key={c.id}
                   className={`grid grid-cols-1 gap-3 px-5 py-4 sm:grid-cols-[1.4fr_1fr_1fr_auto] sm:items-center ${
-                    i < lista.length - 1 ? "border-b border-black/5" : ""
+                    i < lista.length - 1 ? "border-b border-ink/5" : ""
                   } ${atrasada ? "bg-rose-soft/40" : ""}`}
                 >
                   <div className="min-w-0">
@@ -191,7 +191,7 @@ function Agenda() {
                       aria-label="Alterar status"
                       value={c.status}
                       onChange={(e) => trocarStatus(c.id, e.target.value as Status)}
-                      className="rounded-full bg-black/[0.04] px-2 py-1 text-xs font-medium text-muted-ink outline-none"
+                      className="rounded-full bg-ink/[0.06] px-3 py-2 text-sm font-medium text-muted-ink outline-none"
                     >
                       <option value="agendada">agendada</option>
                       <option value="realizada">realizada</option>
@@ -202,14 +202,14 @@ function Agenda() {
                     <button
                       aria-label="Editar"
                       onClick={() => navigate({ to: "/editar/$id", params: { id: c.id } })}
-                      className="grid size-8 place-items-center rounded-lg text-muted-ink transition hover:bg-black/5"
+                      className="grid size-11 place-items-center rounded-xl text-muted-ink transition hover:bg-ink/5"
                     >
                       <span className="text-base leading-none">✎</span>
                     </button>
                     <button
                       aria-label="Excluir"
                       onClick={() => remover(c)}
-                      className="grid size-8 place-items-center rounded-lg text-muted-ink transition hover:bg-rose-soft hover:text-rose"
+                      className="grid size-11 place-items-center rounded-xl text-muted-ink transition hover:bg-rose-soft hover:text-rose"
                     >
                       <span className="text-base leading-none">✕</span>
                     </button>

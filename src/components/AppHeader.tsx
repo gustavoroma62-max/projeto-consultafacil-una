@@ -16,7 +16,7 @@ export function AppHeader() {
   }
 
   return (
-    <header className="border-b border-black/5">
+    <header className="border-b border-ink/5">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-5 py-4">
         <Link to="/agenda" className="flex items-center gap-2.5">
           <div className="grid size-9 place-items-center rounded-[10px] bg-brand text-card-paper">
@@ -29,7 +29,7 @@ export function AppHeader() {
         </Link>
         <div className="flex items-center gap-3">
           {nome && (
-            <div className="hidden items-center gap-2 rounded-full bg-card-paper px-3 py-1.5 ring-1 ring-black/5 sm:flex">
+            <div className="hidden items-center gap-2 rounded-full bg-card-paper px-3 py-1.5 ring-1 ring-ink/5 sm:flex">
               <span className="size-2 rounded-full bg-sage" />
               <span className="text-xs font-medium text-muted-ink">{nome}</span>
             </div>
@@ -42,7 +42,7 @@ export function AppHeader() {
           </Link>
           <button
             onClick={sair}
-            className="rounded-full px-3 py-2.5 text-sm font-semibold text-muted-ink ring-1 ring-black/10 transition hover:bg-black/5"
+            className="rounded-full px-3 py-2.5 text-sm font-semibold text-muted-ink ring-1 ring-ink/10 transition hover:bg-ink/5"
           >
             Sair
           </button>

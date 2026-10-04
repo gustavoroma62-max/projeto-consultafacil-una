@@ -67,7 +67,7 @@ function Landing() {
             ["Atrasadas sinalizadas", "Quem passou da data e não foi marcada aparece em vermelho."],
             ["Só você vê", "Cada pessoa entra com a própria conta e vê apenas as suas consultas."],
           ].map(([titulo, texto]) => (
-            <div key={titulo} className="rounded-2xl bg-card-paper p-5 ring-1 ring-black/5">
+            <div key={titulo} className="rounded-2xl bg-card-paper p-5 ring-1 ring-ink/5">
               <p className="font-display text-sm font-semibold">{titulo}</p>
               <p className="mt-1 text-xs text-muted-ink">{texto}</p>
             </div>

@@ -33,7 +33,7 @@ function EditarConsulta() {
       <AppHeader />
       <main className="mx-auto max-w-2xl px-5 py-8">
         {!carregado ? (
-          <div className="h-80 rounded-2xl bg-card-paper ring-1 ring-black/5" />
+          <div className="h-80 rounded-2xl bg-card-paper ring-1 ring-ink/5" />
         ) : consulta ? (
           <ConsultaForm
             titulo="Editar consulta"
@@ -53,7 +53,7 @@ function EditarConsulta() {
             }}
           />
         ) : (
-          <div className="rounded-2xl bg-card-paper p-7 text-center ring-1 ring-black/5">
+          <div className="rounded-2xl bg-card-paper p-7 text-center ring-1 ring-ink/5">
             <p className="font-display text-lg font-semibold">Consulta não encontrada</p>
             <button
               onClick={() => navigate({ to: "/agenda" })}

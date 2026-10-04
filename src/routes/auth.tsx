@@ -40,8 +40,8 @@ function AuthPage() {
   }, [navigate]);
 
   const campo =
-    "w-full rounded-xl border border-black/10 bg-paper px-3 py-2.5 text-sm text-ink outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20";
-  const rotulo = "mb-1.5 block text-[11px] font-semibold uppercase tracking-wide text-muted-ink";
+    "w-full rounded-xl border border-ink/10 bg-paper px-3 py-2.5 text-sm text-ink outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20";
+  const rotulo = "mb-1.5 block text-sm font-semibold uppercase tracking-wide text-muted-ink";
 
   async function enviar(e: React.FormEvent) {
     e.preventDefault();
@@ -112,8 +112,8 @@ function AuthPage() {
           </div>
         </div>
 
-        <div className="overflow-hidden rounded-2xl bg-card-paper ring-1 ring-black/5">
-          <div className="flex items-center gap-2 border-b border-black/5 px-6 py-4">
+        <div className="overflow-hidden rounded-2xl bg-card-paper ring-1 ring-ink/5">
+          <div className="flex items-center gap-2 border-b border-ink/5 px-6 py-4">
             <span className="h-4 w-1.5 rounded-full bg-amber" />
             <h1 className="font-display text-lg font-semibold">
               {modo === "entrar" ? "Entrar na sua conta" : "Criar sua conta"}
@@ -183,23 +183,23 @@ function AuthPage() {
             </button>
 
             <div className="flex items-center gap-3">
-              <span className="h-px flex-1 bg-black/10" />
-              <span className="text-[11px] font-semibold uppercase tracking-wide text-muted-ink">
+              <span className="h-px flex-1 bg-ink/10" />
+              <span className="text-sm font-semibold uppercase tracking-wide text-muted-ink">
                 ou
               </span>
-              <span className="h-px flex-1 bg-black/10" />
+              <span className="h-px flex-1 bg-ink/10" />
             </div>
 
             <button
               type="button"
               onClick={entrarComGoogle}
-              className="rounded-full px-5 py-2.5 text-sm font-semibold text-ink ring-1 ring-black/10 transition hover:bg-black/5"
+              className="rounded-full px-5 py-2.5 text-sm font-semibold text-ink ring-1 ring-ink/10 transition hover:bg-ink/5"
             >
               Continuar com Google
             </button>
           </form>
 
-          <div className="border-t border-black/5 px-6 py-4 text-center">
+          <div className="border-t border-ink/5 px-6 py-4 text-center">
             <button
               onClick={() => {
                 setErro("");
