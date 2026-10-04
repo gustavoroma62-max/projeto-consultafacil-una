@@ -73,7 +73,7 @@ function Agenda() {
     <div className="min-h-screen bg-paper text-ink">
       <AppHeader />
 
-      <main className="mx-auto max-w-5xl px-5 py-8">
+      <main id="conteudo" className="mx-auto max-w-5xl px-5 py-8">
         {erro && (
           <p className="mb-6 rounded-xl bg-rose-soft px-4 py-3 text-sm font-medium text-rose">
             Não foi possível carregar suas consultas agora. Tente recarregar a página.

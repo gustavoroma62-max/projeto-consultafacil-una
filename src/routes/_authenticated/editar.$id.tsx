@@ -31,7 +31,7 @@ function EditarConsulta() {
   return (
     <div className="min-h-screen bg-paper text-ink">
       <AppHeader />
-      <main className="mx-auto max-w-2xl px-5 py-8">
+      <main id="conteudo" className="mx-auto max-w-2xl px-5 py-8">
         {!carregado ? (
           <div className="h-80 rounded-2xl bg-card-paper ring-1 ring-ink/5" />
         ) : consulta ? (

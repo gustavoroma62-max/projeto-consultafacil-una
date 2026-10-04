@@ -30,7 +30,7 @@ function NovaConsulta() {
   return (
     <div className="min-h-screen bg-paper text-ink">
       <AppHeader />
-      <main className="mx-auto max-w-2xl px-5 py-8">
+      <main id="conteudo" className="mx-auto max-w-2xl px-5 py-8">
         <ConsultaForm
           titulo="Nova consulta"
           onCancel={() => navigate({ to: "/agenda" })}
