@@ -55,19 +55,37 @@ export type Database = {
       }
       profiles: {
         Row: {
+          antecedencia_horas: number
+          aviso_email: boolean
+          aviso_navegador: boolean
+          aviso_sms: boolean
           created_at: string
+          email_aviso: string | null
           id: string
           nome: string | null
+          telefone: string | null
         }
         Insert: {
+          antecedencia_horas?: number
+          aviso_email?: boolean
+          aviso_navegador?: boolean
+          aviso_sms?: boolean
           created_at?: string
+          email_aviso?: string | null
           id: string
           nome?: string | null
+          telefone?: string | null
         }
         Update: {
+          antecedencia_horas?: number
+          aviso_email?: boolean
+          aviso_navegador?: boolean
+          aviso_sms?: boolean
           created_at?: string
+          email_aviso?: string | null
           id?: string
           nome?: string | null
+          telefone?: string | null
         }
         Relationships: []
       }
