@@ -27,8 +27,8 @@ export function ConsultaForm({
   const [v, setV] = useState<ConsultaFormValues>(inicial ?? vazio);
 
   const campo =
-    "w-full rounded-xl border border-black/10 bg-paper px-3 py-2.5 text-sm text-ink outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20";
-  const rotulo = "mb-1.5 block text-[11px] font-semibold uppercase tracking-wide text-muted-ink";
+    "w-full rounded-xl border border-ink/10 bg-paper px-3 py-2.5 text-sm text-ink outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20";
+  const rotulo = "mb-1.5 block text-sm font-semibold uppercase tracking-wide text-muted-ink";
 
   return (
     <form
@@ -36,9 +36,9 @@ export function ConsultaForm({
         e.preventDefault();
         onSubmit(v);
       }}
-      className="overflow-hidden rounded-2xl bg-card-paper ring-1 ring-black/5"
+      className="overflow-hidden rounded-2xl bg-card-paper ring-1 ring-ink/5"
     >
-      <div className="flex items-center gap-2 border-b border-black/5 px-6 py-4">
+      <div className="flex items-center gap-2 border-b border-ink/5 px-6 py-4">
         <span className="h-4 w-1.5 rounded-full bg-amber" />
         <h2 className="font-display text-lg font-semibold">{titulo}</h2>
       </div>
@@ -145,11 +145,11 @@ export function ConsultaForm({
         </div>
       </div>
 
-      <div className="flex justify-end gap-2 border-t border-black/5 px-6 py-4">
+      <div className="flex justify-end gap-2 border-t border-ink/5 px-6 py-4">
         <button
           type="button"
           onClick={onCancel}
-          className="rounded-full px-4 py-2.5 text-sm font-semibold text-muted-ink ring-1 ring-black/10 transition hover:bg-black/5"
+          className="rounded-full px-4 py-2.5 text-sm font-semibold text-muted-ink ring-1 ring-ink/10 transition hover:bg-ink/5"
         >
           Cancelar
         </button>
