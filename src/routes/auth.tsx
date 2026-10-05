@@ -100,8 +100,8 @@ function AuthPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-paper px-5 py-10 text-ink">
-      <div className="w-full max-w-md">
+    <div className="flex min-h-dvh items-center justify-center bg-paper px-5 py-10 text-ink">
+      <main id="conteudo" className="w-full max-w-md">
         <div className="mb-6 flex items-center gap-2.5">
           <div className="grid size-10 place-items-center rounded-[12px] bg-brand text-card-paper">
             <span className="font-display text-xl font-bold leading-none">C</span>

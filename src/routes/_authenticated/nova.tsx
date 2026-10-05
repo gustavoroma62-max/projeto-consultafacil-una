@@ -28,7 +28,7 @@ function NovaConsulta() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-paper text-ink">
+    <div className="min-h-dvh bg-paper text-ink">
       <AppHeader />
       <main id="conteudo" className="mx-auto max-w-2xl px-5 py-8">
         <ConsultaForm
