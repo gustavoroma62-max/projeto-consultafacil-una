@@ -34,8 +34,8 @@ function Landing() {
   }, [navigate]);
 
   return (
-    <div className="min-h-screen bg-paper text-ink">
-      <main id="conteudo" className="mx-auto flex min-h-screen max-w-3xl flex-col justify-center px-5 py-16">
+    <div className="min-h-dvh bg-paper text-ink">
+      <main id="conteudo" className="mx-auto flex min-h-dvh max-w-3xl flex-col justify-center px-5 py-16">
         <div className="mb-6 flex items-center gap-2.5">
           <div className="grid size-10 place-items-center rounded-[12px] bg-brand text-card-paper">
             <span className="font-display text-xl font-bold leading-none">C</span>

@@ -10,6 +10,9 @@ import {
   type Consulta,
   type Status,
 } from "@/lib/consultas";
+import { usePerfil } from "@/lib/perfil";
+import { useLembretesNavegador, textoLembrete } from "@/lib/lembretes";
+import { falar, useAcessibilidade } from "@/lib/acessibilidade";
 
 export const Route = createFileRoute("/_authenticated/agenda")({
   head: () => ({
@@ -60,6 +63,13 @@ function Agenda() {
   const navigate = useNavigate();
   const lista = ordenar(consultas);
   const proxima = proximaConsulta(consultas);
+  const { avisos } = usePerfil();
+  const { prefs } = useAcessibilidade();
+  const lembretes = useLembretesNavegador(
+    consultas,
+    avisos?.antecedencia_horas ?? 24,
+    avisos?.aviso_navegador ?? true,
+  );
 
   const trocarStatus = (id: string, status: Status) => atualizar(id, { status });
 
@@ -70,14 +80,25 @@ function Agenda() {
   };
 
   return (
-    <div className="min-h-screen bg-paper text-ink">
+    <div className="min-h-dvh bg-paper text-ink">
       <AppHeader />
 
-      <main id="conteudo" className="mx-auto max-w-5xl px-5 py-8">
+      <main id="conteudo" className="mx-auto max-w-5xl px-4 py-6 pb-28 sm:px-5 sm:py-8">
         {erro && (
           <p className="mb-6 rounded-xl bg-rose-soft px-4 py-3 text-sm font-medium text-rose">
             Não foi possível carregar suas consultas agora. Tente recarregar a página.
           </p>
+        )}
+
+        {lembretes.length > 0 && (
+          <section aria-live="polite" className="mb-6 rounded-2xl bg-amber-soft p-4 ring-1 ring-amber/40">
+            <p className="font-display text-lg font-semibold">🔔 Lembrete</p>
+            <ul className="mt-1 grid gap-1">
+              {lembretes.map((c) => (
+                <li key={c.id} className="text-base">{textoLembrete(c)}</li>
+              ))}
+            </ul>
+          </section>
         )}
 
         <section className="mb-8">
@@ -112,7 +133,15 @@ function Agenda() {
                     {proxima.exigencias ? ` · ${proxima.exigencias}` : ""}
                   </p>
                 </div>
-                <div className="flex shrink-0 items-center gap-2">
+                <div className="flex shrink-0 flex-wrap items-center gap-2">
+                  {prefs.vozAlta && (
+                    <button
+                      onClick={() => falar(textoLembrete(proxima))}
+                      className="min-h-12 rounded-full bg-card-paper/15 px-4 text-base font-semibold ring-1 ring-card-paper/25"
+                    >
+                      🔊 Ouvir
+                    </button>
+                  )}
                   <Link
                     to="/editar/$id"
                     params={{ id: proxima.id }}
@@ -156,7 +185,7 @@ function Agenda() {
             </div>
 
             {lista.length === 0 && carregado && (
-              <p className="px-5 py-8 text-center text-sm text-muted-ink">
+              <p className="px-4 py-6 pb-28 sm:px-5 sm:py-8 text-center text-sm text-muted-ink">
                 Sua agenda está vazia. Use "Nova consulta" para começar.
               </p>
             )}

@@ -8,3 +8,4 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+- Accessibility preferences live in the browser (src/lib/acessibilidade.tsx, applied as <html> classes + inline pre-paint script); notification preferences live in the profiles table — device-local vs account-wide.

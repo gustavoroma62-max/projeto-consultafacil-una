@@ -56,7 +56,7 @@ export function PainelAcessibilidade() {
   const temas: [Tema, string][] = [
     ["claro", "☀ Claro"],
     ["escuro", "☾ Noturno"],
-    ["auto", "◐ Automático"],
+    ["auto", "◐ Auto"],
   ];
 
   return (
