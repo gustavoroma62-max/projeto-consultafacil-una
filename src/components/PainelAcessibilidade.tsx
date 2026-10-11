@@ -130,6 +130,11 @@ export function PainelAcessibilidade() {
               <Alternar rotulo="Leitura facilitada" descricao="Mais espaço entre letras e linhas" ligado={prefs.espacado} onChange={(v) => mudar({ espacado: v })} />
               <Alternar rotulo="Sem animações" descricao="Para quem sente tontura com movimento" ligado={prefs.semMovimento} onChange={(v) => mudar({ semMovimento: v })} />
               <Alternar rotulo="Botões de ouvir" descricao="Mostra 'Ouvir' para ler a consulta em voz alta" ligado={prefs.vozAlta} onChange={(v) => mudar({ vozAlta: v })} />
+              <p className="mt-3 text-sm font-semibold uppercase tracking-wide text-muted-ink">Recomendações Material Design 3</p>
+              <Alternar rotulo="Foco bem visível" descricao="Contorno grosso no item selecionado pelo teclado" ligado={prefs.focoForte} onChange={(v) => mudar({ focoForte: v })} />
+              <Alternar rotulo="Botões maiores" descricao="Áreas de toque ainda maiores, mais fáceis de acertar" ligado={prefs.botoesGrandes} onChange={(v) => mudar({ botoesGrandes: v })} />
+              <Alternar rotulo="Sublinhar links" descricao="Não depender só da cor para achar o que é clicável" ligado={prefs.sublinhar} onChange={(v) => mudar({ sublinhar: v })} />
+              <Alternar rotulo="Vibrar ao tocar" descricao="Pequena vibração no celular ao tocar em botões" ligado={prefs.vibrar} onChange={(v) => mudar({ vibrar: v })} />
             </div>
 
             <div className="mt-5 flex flex-wrap gap-2">

@@ -234,3 +234,9 @@ html { font-size: 115%; }
 }
 
 :focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; border-radius: 6px; }
+
+/* Material Design 3 — acessibilidade extra */
+.foco-forte *:focus-visible { outline: 4px solid var(--brand); outline-offset: 3px; border-radius: 0.75rem; }
+.botoes-grandes button, .botoes-grandes a, .botoes-grandes select, .botoes-grandes input:not([type=checkbox]) { min-height: 3.5rem; }
+.botoes-grandes input[type=checkbox] { width: 2rem; height: 2rem; }
+.sublinhar a { text-decoration: underline; text-underline-offset: 3px; }
