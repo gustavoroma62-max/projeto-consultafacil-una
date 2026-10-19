@@ -2,17 +2,18 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
+import logo from "@/assets/logo.png";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Entrar — Consultas" },
+      { title: "Entrar — Consulta Fácil" },
       {
         name: "description",
         content:
           "Entre ou crie sua conta para guardar suas consultas com segurança e acessá-las de qualquer aparelho.",
       },
-      { property: "og:title", content: "Entrar — Consultas" },
+      { property: "og:title", content: "Entrar — Consulta Fácil" },
       {
         property: "og:description",
         content: "Acesse sua agenda de consultas de qualquer aparelho com e-mail e senha.",
@@ -103,11 +104,9 @@ function AuthPage() {
     <div className="flex min-h-dvh items-center justify-center bg-paper px-5 py-10 text-ink">
       <main id="conteudo" className="w-full max-w-md">
         <div className="mb-6 flex items-center gap-2.5">
-          <div className="grid size-10 place-items-center rounded-[12px] bg-brand text-card-paper">
-            <span className="font-display text-xl font-bold leading-none">C</span>
-          </div>
+          <img src={logo} alt="" width={40} height={40} className="size-10 rounded-[12px]" />
           <div className="leading-tight">
-            <p className="font-display text-lg font-semibold">Consultas</p>
+            <p className="font-display text-lg font-semibold">Consulta Fácil</p>
             <p className="text-xs text-muted-ink">Sua agenda, salva na sua conta</p>
           </div>
         </div>
