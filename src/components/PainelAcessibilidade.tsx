@@ -65,10 +65,9 @@ export function PainelAcessibilidade() {
         type="button"
         onClick={() => setAberto(true)}
         aria-label="Abrir ajustes de acessibilidade"
-        className="fixed bottom-4 right-4 z-40 flex min-h-14 items-center gap-2 rounded-full bg-ink px-5 text-base font-semibold text-paper shadow-lg ring-2 ring-paper transition hover:scale-105 sm:bottom-6 sm:right-6"
+        className="fixed bottom-4 right-4 z-40 grid size-14 place-items-center rounded-full bg-ink text-paper shadow-lg ring-2 ring-paper transition hover:scale-105 sm:bottom-6 sm:right-6"
       >
-        <span aria-hidden className="font-display text-xl">Aa</span>
-        <span className="hidden sm:inline">Acessibilidade</span>
+        <span aria-hidden className="font-display text-xl font-bold">Aa</span>
       </button>
 
       {aberto && (
@@ -130,7 +129,7 @@ export function PainelAcessibilidade() {
               <Alternar rotulo="Leitura facilitada" descricao="Mais espaço entre letras e linhas" ligado={prefs.espacado} onChange={(v) => mudar({ espacado: v })} />
               <Alternar rotulo="Sem animações" descricao="Para quem sente tontura com movimento" ligado={prefs.semMovimento} onChange={(v) => mudar({ semMovimento: v })} />
               <Alternar rotulo="Botões de ouvir" descricao="Mostra 'Ouvir' para ler a consulta em voz alta" ligado={prefs.vozAlta} onChange={(v) => mudar({ vozAlta: v })} />
-              <p className="mt-3 text-sm font-semibold uppercase tracking-wide text-muted-ink">Recomendações Material Design 3</p>
+              <p className="mt-3 text-sm font-semibold uppercase tracking-wide text-muted-ink">Recomendações</p>
               <Alternar rotulo="Foco bem visível" descricao="Contorno grosso no item selecionado pelo teclado" ligado={prefs.focoForte} onChange={(v) => mudar({ focoForte: v })} />
               <Alternar rotulo="Botões maiores" descricao="Áreas de toque ainda maiores, mais fáceis de acertar" ligado={prefs.botoesGrandes} onChange={(v) => mudar({ botoesGrandes: v })} />
               <Alternar rotulo="Sublinhar links" descricao="Não depender só da cor para achar o que é clicável" ligado={prefs.sublinhar} onChange={(v) => mudar({ sublinhar: v })} />
