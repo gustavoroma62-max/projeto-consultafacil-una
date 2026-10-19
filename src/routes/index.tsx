@@ -1,17 +1,18 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import logo from "@/assets/logo.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Consultas — sua agenda de consultas médicas" },
+      { title: "Consulta Fácil — sua agenda de consultas médicas" },
       {
         name: "description",
         content:
           "Cadastre, organize e acompanhe suas consultas médicas na sua conta: destaque da próxima consulta, alerta das atrasadas e acesso de qualquer aparelho.",
       },
-      { property: "og:title", content: "Consultas — sua agenda de consultas médicas" },
+      { property: "og:title", content: "Consulta Fácil — sua agenda de consultas médicas" },
       {
         property: "og:description",
         content:
@@ -37,10 +38,8 @@ function Landing() {
     <div className="min-h-dvh bg-paper text-ink">
       <main id="conteudo" className="mx-auto flex min-h-dvh max-w-3xl flex-col justify-center px-5 py-16">
         <div className="mb-6 flex items-center gap-2.5">
-          <div className="grid size-10 place-items-center rounded-[12px] bg-brand text-card-paper">
-            <span className="font-display text-xl font-bold leading-none">C</span>
-          </div>
-          <p className="font-display text-lg font-semibold">Consultas</p>
+          <img src={logo} alt="" width={40} height={40} className="size-10 rounded-[12px]" />
+          <p className="font-display text-lg font-semibold">Consulta Fácil</p>
         </div>
 
         <h1 className="font-display text-4xl font-semibold leading-tight sm:text-5xl">
