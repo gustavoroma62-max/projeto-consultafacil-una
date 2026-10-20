@@ -6,13 +6,13 @@ import logo from "@/assets/logo.png";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Consulta Fácil — sua agenda de consultas médicas" },
+      { title: "Agenda Amiga — suas consultas médicas sempre em dia" },
       {
         name: "description",
         content:
           "Cadastre, organize e acompanhe suas consultas médicas na sua conta: destaque da próxima consulta, alerta das atrasadas e acesso de qualquer aparelho.",
       },
-      { property: "og:title", content: "Consulta Fácil — sua agenda de consultas médicas" },
+      { property: "og:title", content: "Agenda Amiga — suas consultas médicas sempre em dia" },
       {
         property: "og:description",
         content:
@@ -39,7 +39,7 @@ function Landing() {
       <main id="conteudo" className="mx-auto flex min-h-dvh max-w-3xl flex-col justify-center px-5 py-16">
         <div className="mb-6 flex items-center gap-2.5">
           <img src={logo} alt="" width={40} height={40} className="size-10 rounded-[12px]" />
-          <p className="font-display text-lg font-semibold">Consulta Fácil</p>
+          <p className="font-display text-lg font-semibold">Agenda Amiga</p>
         </div>
 
         <h1 className="font-display text-4xl font-semibold leading-tight sm:text-5xl">

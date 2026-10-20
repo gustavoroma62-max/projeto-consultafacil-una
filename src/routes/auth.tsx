@@ -7,13 +7,13 @@ import logo from "@/assets/logo.png";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Entrar — Consulta Fácil" },
+      { title: "Entrar — Agenda Amiga" },
       {
         name: "description",
         content:
           "Entre ou crie sua conta para guardar suas consultas com segurança e acessá-las de qualquer aparelho.",
       },
-      { property: "og:title", content: "Entrar — Consulta Fácil" },
+      { property: "og:title", content: "Entrar — Agenda Amiga" },
       {
         property: "og:description",
         content: "Acesse sua agenda de consultas de qualquer aparelho com e-mail e senha.",
@@ -106,7 +106,7 @@ function AuthPage() {
         <div className="mb-6 flex items-center gap-2.5">
           <img src={logo} alt="" width={40} height={40} className="size-10 rounded-[12px]" />
           <div className="leading-tight">
-            <p className="font-display text-lg font-semibold">Consulta Fácil</p>
+            <p className="font-display text-lg font-semibold">Agenda Amiga</p>
             <p className="text-xs text-muted-ink">Sua agenda, salva na sua conta</p>
           </div>
         </div>
