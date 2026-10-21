@@ -81,10 +81,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Agenda Amiga" },
+      { title: "Projeto Consulta Fácil" },
       { name: "description", content: "Sua agenda de consultas médicas, salva na sua conta e acessível de qualquer aparelho." },
-      { name: "author", content: "Agenda Amiga" },
-      { property: "og:title", content: "Agenda Amiga" },
+      { name: "author", content: "Projeto Consulta Fácil" },
+      { property: "og:title", content: "Projeto Consulta Fácil" },
       { property: "og:description", content: "Sua agenda de consultas médicas, salva na sua conta e acessível de qualquer aparelho." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
