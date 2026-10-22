@@ -1,0 +1,2 @@
+ALTER TABLE public.profiles ADD COLUMN acompanhante_nome text NOT NULL DEFAULT '', ADD COLUMN acompanhante_telefone text NOT NULL DEFAULT '';
+ALTER TABLE public.profiles ADD CONSTRAINT acompanhante_nome_limite CHECK (char_length(acompanhante_nome) <= 100), ADD CONSTRAINT acompanhante_telefone_formato CHECK (acompanhante_telefone = '' OR acompanhante_telefone ~ '^[0-9]{10,15}$');
