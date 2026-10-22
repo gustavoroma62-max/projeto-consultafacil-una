@@ -26,7 +26,7 @@ export function AppHeader() {
         <Link to="/agenda" className="flex min-h-12 items-center gap-2.5">
           <img src={logo} alt="" width={44} height={44} className="size-11 rounded-xl" />
           <div className="leading-tight">
-            <p className="font-display text-lg font-semibold">Projeto Consulta Fácil</p>
+            <p className="font-display text-lg font-semibold">ConsultaFácil</p>
             {nome && <p className="text-sm text-muted-ink">Olá, {nome.split(" ")[0]}</p>}
           </div>
         </Link>
