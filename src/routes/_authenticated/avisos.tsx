@@ -3,15 +3,19 @@ import { useEffect, useState } from "react";
 import { AppHeader } from "@/components/AppHeader";
 import { usePerfil, type PrefsAviso } from "@/lib/perfil";
 import { notificar, pedirPermissao } from "@/lib/lembretes";
+import { normalizarCelular } from "@/lib/compartilhar";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/_authenticated/avisos")({
   head: () => ({
     meta: [
-      { title: "Avisos e lembretes — Consultas" },
+      { title: "Avisos e lembretes — ConsultaFácil" },
       { name: "description", content: "Escolha como receber lembretes das suas consultas: no aparelho, por e-mail ou por SMS." },
-      { property: "og:title", content: "Avisos e lembretes — Consultas" },
+      { property: "og:title", content: "Avisos e lembretes — ConsultaFácil" },
       { property: "og:description", content: "Lembretes de consulta no aparelho, por e-mail ou SMS." },
       { name: "robots", content: "noindex" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Avisos,
@@ -25,6 +29,7 @@ function Avisos() {
   const [f, setF] = useState<PrefsAviso | null>(null);
   const [msg, setMsg] = useState("");
   const [perm, setPerm] = useState<string>("");
+  const [salvando, setSalvando] = useState(false);
 
   useEffect(() => {
     if (avisos && !f) setF(avisos);
@@ -39,15 +44,24 @@ function Avisos() {
 
   async function salvar(e: React.FormEvent) {
     e.preventDefault();
-    if (f!.aviso_sms && f!.telefone.replace(/\D/g, "").length < 10) {
+    if (!f || salvando) return;
+    if (f.aviso_sms && f.telefone.replace(/\D/g, "").length < 10) {
       setMsg("Informe o celular com DDD para receber SMS.");
       return;
     }
+    const celular = f.acompanhante_telefone.trim() ? normalizarCelular(f.acompanhante_telefone) : '';
+    if (celular === null) {
+      setMsg("Informe o celular do acompanhante com DDD. Para outro país, inclua + e o código do país.");
+      return;
+    }
+    setSalvando(true);
     try {
-      await salvarAsync(f!);
+      await salvarAsync({ ...f, acompanhante_nome: f.acompanhante_nome.trim(), acompanhante_telefone: celular });
       setMsg("Preferências salvas!");
     } catch {
       setMsg("Não foi possível salvar. Tente novamente.");
+    } finally {
+      setSalvando(false);
     }
   }
 
@@ -74,7 +88,7 @@ function Avisos() {
         <h1 className="mb-1 font-display text-3xl font-semibold">Avisos e lembretes</h1>
         <p className="mb-6 text-base text-muted-ink">Escolha como quer ser lembrado das suas consultas.</p>
 
-        <form onSubmit={salvar} className="grid gap-5 rounded-2xl bg-card-paper p-5 ring-1 ring-ink/10 sm:p-6">
+        <form onSubmit={salvar} className="grid gap-5">
           <fieldset className="grid gap-2">
             <legend className="mb-2 text-lg font-semibold">Como avisar</legend>
             <Opcao k="aviso_navegador" titulo="Neste aparelho" desc="Notificação na tela do celular ou computador ao abrir o sistema." />
@@ -117,10 +131,21 @@ function Avisos() {
             </select>
           </div>
 
+          <fieldset className="grid gap-4 border-t border-ink/15 pt-5">
+            <legend className="text-xl font-semibold">Acompanhante</legend>
+            <div>
+              <label htmlFor="acompanhante_nome" className="mb-1.5 block text-base font-semibold">Nome do acompanhante</label>
+              <input id="acompanhante_nome" maxLength={100} autoComplete="off" className={campo} value={f.acompanhante_nome} onChange={(e) => set({ acompanhante_nome: e.target.value })} />
+            </div>
+            <div>
+              <label htmlFor="acompanhante_telefone" className="mb-1.5 block text-base font-semibold">WhatsApp do acompanhante (com DDD)</label>
+              <input id="acompanhante_telefone" type="tel" inputMode="tel" maxLength={24} autoComplete="off" placeholder="(11) 91234-5678" className={campo} value={f.acompanhante_telefone} onChange={(e) => set({ acompanhante_telefone: e.target.value })} />
+            </div>
+          </fieldset>
           <p role="status" aria-live="polite" className="min-h-6 text-base font-semibold text-brand-dark">{msg}</p>
-          <button type="submit" className="min-h-14 rounded-full bg-brand text-lg font-semibold text-card-paper hover:bg-brand-dark">
-            Salvar preferências
-          </button>
+          <Button type="submit" disabled={salvando} className="h-auto min-h-14 rounded-full bg-brand text-lg font-semibold text-card-paper hover:bg-brand-dark">
+            {salvando ? "Salvando…" : "Salvar preferências"}
+          </Button>
         </form>
       </main>
     </div>

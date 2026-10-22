@@ -13,22 +13,25 @@ import {
 import { usePerfil } from "@/lib/perfil";
 import { useLembretesNavegador, textoLembrete } from "@/lib/lembretes";
 import { falar, useAcessibilidade } from "@/lib/acessibilidade";
+import { CompartilharConsulta } from "@/components/CompartilharConsulta";
 
 export const Route = createFileRoute("/_authenticated/agenda")({
   head: () => ({
     meta: [
-      { title: "Minha agenda — Consultas" },
+      { title: "Minha agenda — ConsultaFácil" },
       {
         name: "description",
         content:
           "Acompanhe suas consultas salvas na sua conta, com destaque da próxima e alerta das atrasadas.",
       },
-      { property: "og:title", content: "Minha agenda — Consultas" },
+      { property: "og:title", content: "Minha agenda — ConsultaFácil" },
       {
         property: "og:description",
         content: "Suas consultas salvas na sua conta, com destaque da próxima e alerta das atrasadas.",
       },
       { name: "robots", content: "noindex" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Agenda,
@@ -157,6 +160,7 @@ function Agenda() {
                   </button>
                 </div>
               </div>
+              <div className="border-t border-card-paper/20 px-6 pb-6 sm:px-7"><CompartilharConsulta consulta={proxima} /></div>
             </div>
           ) : (
             <div className="rounded-[18px] bg-card-paper p-7 ring-1 ring-ink/5">
@@ -177,7 +181,7 @@ function Agenda() {
           </div>
 
           <div className="overflow-hidden rounded-[16px] bg-card-paper ring-1 ring-ink/5">
-            <div className="hidden grid-cols-[1.4fr_1fr_1fr_auto] gap-3 border-b border-ink/5 bg-ink/[0.02] px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-muted-ink sm:grid">
+            <div className="hidden grid-cols-[1.4fr_1fr_1fr_auto] gap-3 border-b border-ink/5 bg-ink/[0.02] px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-muted-ink md:grid">
               <span>Profissional</span>
               <span>Data e hora</span>
               <span>Status</span>
@@ -195,12 +199,12 @@ function Agenda() {
               return (
                 <div
                   key={c.id}
-                  className={`grid grid-cols-1 gap-3 px-5 py-4 sm:grid-cols-[1.4fr_1fr_1fr_auto] sm:items-center ${
+                  className={`grid grid-cols-1 gap-3 px-5 py-4 md:grid-cols-[1.4fr_1fr_1fr_auto] md:items-center ${
                     i < lista.length - 1 ? "border-b border-ink/5" : ""
                   } ${atrasada ? "bg-rose-soft/40" : ""}`}
                 >
                   <div className="min-w-0">
-                    <p className="truncate font-semibold">{c.profissional}</p>
+                    <p className="break-words font-semibold">{c.profissional}</p>
                     <p className="text-xs text-muted-ink">
                       {c.especialidade} · {c.local}
                     </p>
@@ -243,6 +247,7 @@ function Agenda() {
                       <span className="text-base leading-none">✕</span>
                     </button>
                   </div>
+                  {c.status === "agendada" && <div className="md:col-span-4"><CompartilharConsulta consulta={c} /></div>}
                 </div>
               );
             })}
