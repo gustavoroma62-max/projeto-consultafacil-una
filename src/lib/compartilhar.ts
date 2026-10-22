@@ -10,7 +10,7 @@ export function normalizarCelular(valor: string): string | null {
 
 /** Horários sem Z conservam a hora local no fuso escolhido no Google. */
 export function linkGoogleAgenda(c: Consulta, fuso = 'America/Sao_Paulo'): string {
-  const [hora, minuto] = c.hora.split(':').map(Number);
+  const [hora = 0, minuto = 0] = c.hora.split(':').map(Number);
   const inicio = new Date(`${c.data}T12:00:00Z`);
   inicio.setUTCHours(hora, minuto, 0, 0);
   const fim = new Date(inicio.getTime() + 60 * 60_000);
