@@ -6,17 +6,19 @@ import { useConsultas } from "@/lib/consultas";
 export const Route = createFileRoute("/_authenticated/editar/$id")({
   head: () => ({
     meta: [
-      { title: "Editar consulta — Consultas" },
+      { title: "Editar consulta — ConsultaFácil" },
       {
         name: "description",
         content: "Altere os dados de uma consulta já cadastrada na sua agenda.",
       },
-      { property: "og:title", content: "Editar consulta — Consultas" },
+      { property: "og:title", content: "Editar consulta — ConsultaFácil" },
       {
         property: "og:description",
         content: "Altere profissional, data, hora, local, exigências e status da consulta.",
       },
       { name: "robots", content: "noindex" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: EditarConsulta,

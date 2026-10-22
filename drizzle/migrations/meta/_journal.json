@@ -15,6 +15,13 @@
       "when": 1791157690115,
       "tag": "0001_add_notification_prefs",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792629826297,
+      "tag": "0002_add_companion_contact",
+      "breakpoints": true
     }
   ]
 }

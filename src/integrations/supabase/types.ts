@@ -55,6 +55,8 @@ export type Database = {
       }
       profiles: {
         Row: {
+          acompanhante_nome: string
+          acompanhante_telefone: string
           antecedencia_horas: number
           aviso_email: boolean
           aviso_navegador: boolean
@@ -66,6 +68,8 @@ export type Database = {
           telefone: string | null
         }
         Insert: {
+          acompanhante_nome?: string
+          acompanhante_telefone?: string
           antecedencia_horas?: number
           aviso_email?: boolean
           aviso_navegador?: boolean
@@ -77,6 +81,8 @@ export type Database = {
           telefone?: string | null
         }
         Update: {
+          acompanhante_nome?: string
+          acompanhante_telefone?: string
           antecedencia_horas?: number
           aviso_email?: boolean
           aviso_navegador?: boolean
