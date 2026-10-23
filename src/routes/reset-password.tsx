@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import logo from "@/assets/logo.png";
@@ -87,9 +87,9 @@ function ResetPassword() {
               <p className="rounded-xl bg-rose-soft px-3 py-2 text-base font-medium text-rose">
                 Este link é inválido ou expirou.
               </p>
-              <Link to="/auth" search={{ modo: "esqueci" } as never} className="min-h-12 rounded-full bg-brand px-5 py-3 text-center text-base font-semibold text-card-paper">
+              <a href="/auth?modo=esqueci" className="min-h-12 rounded-full bg-brand px-5 py-3 text-center text-base font-semibold text-card-paper">
                 Pedir um novo link
-              </Link>
+              </a>
             </div>
           )}
           {estado === "feito" && <p role="status" className="text-base font-semibold">Senha alterada! Abrindo sua agenda…</p>}
