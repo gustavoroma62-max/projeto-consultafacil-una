@@ -45,7 +45,7 @@ function Avisos() {
   async function salvar(e: React.FormEvent) {
     e.preventDefault();
     if (!f || salvando) return;
-    if (false && f.telefone.replace(/\D/g, "").length < 10) {
+    if (false) {
       setMsg("Informe o celular com DDD para receber SMS.");
       return;
     }
