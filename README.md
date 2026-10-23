@@ -1,6 +1,6 @@
 # Projeto Consultafacil Una
 
-Preciso que crie um prototipo ou se possivel o primeiro modelo do sistema que está documento nesse documento anexado e me eplique como funciona e o processo tudo detalhadamente.
+Preciso que crie um prototipo ou se possivel o primeiro modelo do sistema que está documento nesse documento anexado e me explique como funciona e o processo tudo detalhadamente.
 
 This project was built with [Lovable](https://lovable.dev).
 
