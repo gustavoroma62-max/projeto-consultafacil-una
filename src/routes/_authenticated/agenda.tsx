@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { AppHeader } from "@/components/AppHeader";
 import {
@@ -76,15 +78,28 @@ function Agenda() {
 
   const trocarStatus = (id: string, status: Status) => atualizar(id, { status });
 
-  const remover = (c: Consulta) => {
-    if (window.confirm(`Excluir a consulta com ${c.profissional} em ${formatarData(c.data)}?`)) {
-      excluir(c.id);
-    }
-  };
+  const [aExcluir, setAExcluir] = useState<Consulta | null>(null);
+  const remover = (c: Consulta) => setAExcluir(c);
 
   return (
     <div className="min-h-dvh bg-paper text-ink">
       <AppHeader />
+      <AlertDialog open={!!aExcluir} onOpenChange={(o) => !o && setAExcluir(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-xl">Excluir esta consulta?</AlertDialogTitle>
+            <AlertDialogDescription className="text-base">
+              {aExcluir && `Consulta com ${aExcluir.profissional} em ${formatarData(aExcluir.data)}. Isso não pode ser desfeito.`}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel className="min-h-12 text-base">Cancelar</AlertDialogCancel>
+            <AlertDialogAction className="min-h-12 bg-destructive text-base text-destructive-foreground hover:bg-destructive/90" onClick={() => { if (aExcluir) excluir(aExcluir.id); setAExcluir(null); }}>
+              Excluir consulta
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       <main id="conteudo" className="mx-auto max-w-5xl px-4 py-6 pb-28 sm:px-5 sm:py-8">
         {erro && (

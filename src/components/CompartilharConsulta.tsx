@@ -21,8 +21,12 @@ export function CompartilharConsulta({ consulta }: { consulta: Consulta }) {
       {whatsapp ? (
         <Button variant="outline" className="h-auto min-h-12 whitespace-normal text-base text-ink" asChild>
           <a href={whatsapp} target="_blank" rel="noopener noreferrer" onClick={(e) => {
-            if (!window.confirm('A mensagem contém os dados desta consulta. Ela será aberta no WhatsApp do acompanhante; você decide se envia. Continuar?')) e.preventDefault();
+            if (!window.confirm('O WhatsApp será aberto com uma mensagem pronta (seu nome, data, horário e local). Nada é enviado automaticamente: você confirma o envio no WhatsApp. Continuar?')) e.preventDefault();
           }}><MessageCircle aria-hidden="true" />Avisar acompanhante</a>
+        </Button>
+      ) : null}
+      {whatsapp ? <p className="w-full text-sm text-muted-ink">Você confirma o envio no WhatsApp.</p> : null}
+      {!whatsapp ? (<>{null}</>
         </Button>
       ) : <Button variant="outline" className="h-auto min-h-12 whitespace-normal text-base text-ink" onClick={() => setAviso(true)}><MessageCircle aria-hidden="true" />Avisar acompanhante</Button>}
       {aviso && <p role="status" className="w-full text-base">Cadastre o celular do acompanhante em <Link to="/avisos" className="font-semibold text-brand-dark underline">Avisos</Link>.</p>}
