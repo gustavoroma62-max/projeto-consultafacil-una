@@ -45,10 +45,6 @@ function Avisos() {
   async function salvar(e: React.FormEvent) {
     e.preventDefault();
     if (!f || salvando) return;
-    if (f.aviso_sms && f.telefone.replace(/\D/g, "").length < 10) {
-      setMsg("Informe o celular com DDD para receber SMS.");
-      return;
-    }
     const celular = f.acompanhante_telefone.trim() ? normalizarCelular(f.acompanhante_telefone) : '';
     if (celular === null) {
       setMsg("Informe o celular do acompanhante com DDD. Para outro país, inclua + e o código do país.");
@@ -56,7 +52,7 @@ function Avisos() {
     }
     setSalvando(true);
     try {
-      await salvarAsync({ ...f, acompanhante_nome: f.acompanhante_nome.trim(), acompanhante_telefone: celular });
+      await salvarAsync({ ...f, aviso_email: false, aviso_sms: false, acompanhante_nome: f.acompanhante_nome.trim(), acompanhante_telefone: celular });
       setMsg("Preferências salvas!");
     } catch {
       setMsg("Não foi possível salvar. Tente novamente.");
@@ -71,11 +67,11 @@ function Avisos() {
     if (r === "granted") notificar("Avisos ativados", "Você receberá lembretes das consultas neste aparelho.");
   }
 
-  const Opcao = ({ k, titulo, desc }: { k: "aviso_navegador" | "aviso_email" | "aviso_sms"; titulo: string; desc: string }) => (
-    <label className="flex min-h-14 cursor-pointer items-start gap-3 rounded-xl p-3 ring-1 ring-ink/10 hover:bg-ink/5">
-      <input type="checkbox" checked={f[k]} onChange={(e) => set({ [k]: e.target.checked })} className="mt-1 size-6 accent-[var(--brand)]" />
+  const Opcao = ({ k, titulo, desc, emBreve }: { k: "aviso_navegador" | "aviso_email" | "aviso_sms"; titulo: string; desc: string; emBreve?: boolean }) => (
+    <label className={`flex min-h-14 items-start gap-3 rounded-xl p-3 ring-1 ring-ink/10 ${emBreve ? "cursor-not-allowed opacity-70" : "cursor-pointer hover:bg-ink/5"}`}>
+      <input type="checkbox" disabled={emBreve} checked={emBreve ? false : f[k]} onChange={(e) => set({ [k]: e.target.checked })} className="mt-1 size-6 accent-[var(--brand)]" />
       <span>
-        <span className="block text-base font-semibold">{titulo}</span>
+        <span className="block text-base font-semibold">{titulo}{emBreve && <span className="ml-2 rounded-full bg-amber-soft px-2 py-0.5 text-sm">Em desenvolvimento</span>}</span>
         <span className="block text-sm text-muted-ink">{desc}</span>
       </span>
     </label>
@@ -91,9 +87,9 @@ function Avisos() {
         <form onSubmit={salvar} className="grid gap-5">
           <fieldset className="grid gap-2">
             <legend className="mb-2 text-lg font-semibold">Como avisar</legend>
-            <Opcao k="aviso_navegador" titulo="Neste aparelho" desc="Notificação na tela do celular ou computador ao abrir o sistema." />
-            <Opcao k="aviso_email" titulo="Por e-mail" desc="Mensagem com data, hora, local e o que levar." />
-            <Opcao k="aviso_sms" titulo="Por SMS no celular" desc="Mensagem de texto curta no número cadastrado." />
+            <Opcao k="aviso_navegador" titulo="Neste aparelho" desc="Aparece somente quando você abre o ConsultaFácil neste aparelho e há consulta dentro da antecedência escolhida. Com o sistema fechado, nenhum aviso é mostrado." />
+            <Opcao k="aviso_email" titulo="Por e-mail" desc="Ainda não envia mensagens." emBreve />
+            <Opcao k="aviso_sms" titulo="Por SMS no celular" desc="Ainda não envia mensagens." emBreve />
           </fieldset>
 
           {f.aviso_navegador && perm !== "granted" && (

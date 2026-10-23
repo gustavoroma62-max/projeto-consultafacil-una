@@ -14,6 +14,9 @@ describe('compartilhar consulta', () => {
     expect(url.pathname).toBe('/5511912345678');
     expect(url.searchParams.get('text')).toContain('31/12/2026 às 23:30');
     expect(url.searchParams.get('text')).toContain('Maria');
+    expect(url.searchParams.get('text')).toContain('Rua A, 20');
+    expect(url.searchParams.get('text')).not.toContain('Clínica');
+    expect(url.searchParams.get('text')).not.toContain('Documento');
   });
   it('recusa celular incompleto e conserva código internacional', () => {
     expect(normalizarCelular('123')).toBeNull();

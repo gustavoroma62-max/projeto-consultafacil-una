@@ -30,6 +30,6 @@ export function linkAcompanhante(c: Consulta, telefone: string, acompanhante: st
   const numero = normalizarCelular(telefone);
   if (!numero) return null;
   const [ano, mes, dia] = c.data.split('-');
-  const mensagem = `Olá${acompanhante.trim() ? `, ${acompanhante.trim()}` : ''}! ${paciente.trim() ? `Sou ${paciente.trim()}. ` : ''}Compartilho minha consulta pelo ConsultaFácil:\n${c.especialidade} com ${c.profissional}\nData: ${dia}/${mes}/${ano} às ${c.hora.slice(0, 5)}\nLocal: ${c.local}${c.exigencias ? `\nO que levar / preparo: ${c.exigencias}` : ''}\nVocê pode me acompanhar?`;
+  const mensagem = `Olá${acompanhante.trim() ? `, ${acompanhante.trim()}` : ''}! ${paciente.trim() ? `Sou ${paciente.trim()}. ` : ''}Tenho um compromisso e gostaria da sua companhia:\nData: ${dia}/${mes}/${ano} às ${c.hora.slice(0, 5)}\nLocal: ${c.local}\nVocê pode me acompanhar?`;
   return `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
 }
