@@ -27,14 +27,16 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const navigate = useNavigate();
-  const [modo, setModo] = useState<"entrar" | "criar">("entrar");
+  const [modo, setModo] = useState<"entrar" | "criar" | "esqueci">("entrar");
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
   const [ocupado, setOcupado] = useState(false);
+  const [info, setInfo] = useState("");
 
   useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("modo") === "esqueci") setModo("esqueci");
     supabase.auth.getUser().then(({ data }) => {
       if (data.user) navigate({ to: "/agenda", replace: true });
     });
@@ -47,8 +49,14 @@ function AuthPage() {
   async function enviar(e: React.FormEvent) {
     e.preventDefault();
     setErro("");
+    setInfo("");
     setOcupado(true);
     try {
+      if (modo === "esqueci") {
+        await supabase.auth.resetPasswordForEmail(email, { redirectTo: `${window.location.origin}/reset-password` });
+        setInfo("Se houver uma conta com esse e-mail, você receberá as instruções.");
+        return;
+      }
       if (modo === "criar") {
         const { error } = await supabase.auth.signUp({
           email,
@@ -115,7 +123,7 @@ function AuthPage() {
           <div className="flex items-center gap-2 border-b border-ink/5 px-6 py-4">
             <span className="h-4 w-1.5 rounded-full bg-amber" />
             <h1 className="font-display text-lg font-semibold">
-              {modo === "entrar" ? "Entrar na sua conta" : "Criar sua conta"}
+              {modo === "entrar" ? "Entrar na sua conta" : modo === "esqueci" ? "Recuperar senha" : "Criar sua conta"}
             </h1>
           </div>
 
@@ -150,7 +158,7 @@ function AuthPage() {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div>
+            {modo !== "esqueci" && <div>
               <label className={rotulo} htmlFor="senha">
                 Senha
               </label>
@@ -165,7 +173,13 @@ function AuthPage() {
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
               />
-            </div>
+              {modo === "entrar" && (
+                <button type="button" onClick={() => { setErro(""); setInfo(""); setModo("esqueci"); }} className="mt-2 min-h-11 text-base font-semibold text-brand-dark underline">
+                  Esqueci minha senha
+                </button>
+              )}
+            </div>}
+            {info && <p role="status" className="rounded-xl bg-sage-soft px-3 py-2 text-base font-medium">{info}</p>}
 
             {erro && (
               <p className="rounded-xl bg-rose-soft px-3 py-2 text-xs font-medium text-rose">
@@ -178,7 +192,7 @@ function AuthPage() {
               disabled={ocupado}
               className="rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-card-paper ring-1 ring-brand-dark/30 transition hover:bg-brand-dark disabled:opacity-60"
             >
-              {ocupado ? "Aguarde…" : modo === "entrar" ? "Entrar" : "Criar conta e entrar"}
+              {ocupado ? "Aguarde…" : modo === "esqueci" ? "Enviar instruções" : modo === "entrar" ? "Entrar" : "Criar conta e entrar"}
             </button>
 
             <div className="flex items-center gap-3">
@@ -202,11 +216,12 @@ function AuthPage() {
             <button
               onClick={() => {
                 setErro("");
+                setInfo("");
                 setModo(modo === "entrar" ? "criar" : "entrar");
               }}
               className="text-xs font-semibold text-brand underline-offset-2 hover:underline"
             >
-              {modo === "entrar"
+              {modo === "esqueci" ? "Voltar para entrar" : modo === "entrar"
                 ? "Não tenho conta — criar agora"
                 : "Já tenho conta — quero entrar"}
             </button>
