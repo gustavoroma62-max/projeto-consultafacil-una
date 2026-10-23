@@ -45,10 +45,6 @@ function Avisos() {
   async function salvar(e: React.FormEvent) {
     e.preventDefault();
     if (!f || salvando) return;
-    if (false) {
-      setMsg("Informe o celular com DDD para receber SMS.");
-      return;
-    }
     const celular = f.acompanhante_telefone.trim() ? normalizarCelular(f.acompanhante_telefone) : '';
     if (celular === null) {
       setMsg("Informe o celular do acompanhante com DDD. Para outro país, inclua + e o código do país.");
