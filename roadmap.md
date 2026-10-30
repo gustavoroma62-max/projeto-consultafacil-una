@@ -1,5 +1,6 @@
 # Alterações solicitadas
-- [x] Exibir ConsultaFácil nas telas e títulos, mantendo a logo existente.
-- [x] Adicionar consultas ao Google Agenda com confirmação do usuário (salvamento e avisos escolhidos no Google; sem sincronização automática).
-- [x] Salvar nome e celular do acompanhante e abrir mensagem pelo WhatsApp.
-- [x] Verificar salvamento, links e telas em computador e celular; abertura dos destinos externos testada sem enviar mensagens.
+- [x] Visual Material 3 (fonte Roboto, cantos arredondados, superfícies em tons).
+- [x] Login fixo na tela, sem barra de rolagem; botão "Mostrar senha" (login e nova senha).
+- [x] Menu lateral no computador e barra inferior no celular, no lugar do topo antigo.
+- [x] Engrenagem/Configurações com a acessibilidade; página de Ajuda.
+- [x] Tipo de compromisso (consulta, exame, procedimento) em Nova consulta.
