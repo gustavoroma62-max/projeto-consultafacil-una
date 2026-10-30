@@ -246,3 +246,9 @@ html { font-size: 115%; }
 .botoes-grandes button, .botoes-grandes a, .botoes-grandes select, .botoes-grandes input:not([type=checkbox]) { min-height: 3.5rem; }
 .botoes-grandes input[type=checkbox] { width: 2rem; height: 2rem; }
 .sublinhar a { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ===== Material Design 3 ===== */
+/* Camada de estado: leve escurecimento ao tocar/passar o mouse em botões e links */
+button:not(:disabled):active, a:active { filter: brightness(0.94); }
+.contraste { --surface-low: var(--paper); --surface-high: var(--card-paper); }
+input, select, textarea { border-radius: 0.75rem; }

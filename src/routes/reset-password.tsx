@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { CampoSenha } from "@/components/CampoSenha";
 import logo from "@/assets/logo.png";
 
 export const Route = createFileRoute("/reset-password")({
@@ -97,11 +98,11 @@ function ResetPassword() {
             <form onSubmit={salvar} className="grid gap-4">
               <div>
                 <label htmlFor="senha" className="mb-1.5 block text-base font-semibold">Nova senha</label>
-                <input id="senha" type="password" required minLength={6} autoComplete="new-password" className={campo} value={senha} onChange={(e) => setSenha(e.target.value)} />
+                <CampoSenha id="senha" required minLength={6} autoComplete="new-password" className={campo} value={senha} onChange={(e) => setSenha(e.target.value)} />
               </div>
               <div>
                 <label htmlFor="confirma" className="mb-1.5 block text-base font-semibold">Repita a nova senha</label>
-                <input id="confirma" type="password" required minLength={6} autoComplete="new-password" className={campo} value={confirma} onChange={(e) => setConfirma(e.target.value)} />
+                <CampoSenha id="confirma" required minLength={6} autoComplete="new-password" className={campo} value={confirma} onChange={(e) => setConfirma(e.target.value)} />
               </div>
               {erro && <p role="alert" className="rounded-xl bg-rose-soft px-3 py-2 text-base font-medium text-rose">{erro}</p>}
               <button type="submit" disabled={ocupado} className="min-h-12 rounded-full bg-brand px-5 text-base font-semibold text-card-paper disabled:opacity-60">
