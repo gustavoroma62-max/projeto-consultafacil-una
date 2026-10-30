@@ -25,6 +25,7 @@ export type Database = {
           local: string
           profissional: string
           status: Database["public"]["Enums"]["consulta_status"]
+          tipo: Database["public"]["Enums"]["compromisso_tipo"]
           user_id: string
         }
         Insert: {
@@ -37,6 +38,7 @@ export type Database = {
           local?: string
           profissional: string
           status?: Database["public"]["Enums"]["consulta_status"]
+          tipo?: Database["public"]["Enums"]["compromisso_tipo"]
           user_id?: string
         }
         Update: {
@@ -49,6 +51,7 @@ export type Database = {
           local?: string
           profissional?: string
           status?: Database["public"]["Enums"]["consulta_status"]
+          tipo?: Database["public"]["Enums"]["compromisso_tipo"]
           user_id?: string
         }
         Relationships: []
@@ -103,6 +106,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      compromisso_tipo: "consulta" | "exame" | "procedimento"
       consulta_status: "agendada" | "realizada" | "cancelada"
     }
     CompositeTypes: {
@@ -231,6 +235,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      compromisso_tipo: ["consulta", "exame", "procedimento"],
       consulta_status: ["agendada", "realizada", "cancelada"],
     },
   },
