@@ -1,5 +1,4 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { AppHeader } from "@/components/AppHeader";
 import { ConsultaForm } from "@/components/ConsultaForm";
 import { useConsultas } from "@/lib/consultas";
 
@@ -31,8 +30,7 @@ function EditarConsulta() {
   const consulta = consultas.find((c) => c.id === id);
 
   return (
-    <div className="min-h-dvh bg-paper text-ink">
-      <AppHeader />
+    <div className="bg-paper text-ink">
       <main id="conteudo" className="mx-auto max-w-2xl px-5 py-8">
         {!carregado ? (
           <div className="h-80 rounded-2xl bg-card-paper ring-1 ring-ink/5" />

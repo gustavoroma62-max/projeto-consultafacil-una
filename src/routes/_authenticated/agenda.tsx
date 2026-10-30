@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { AppHeader } from "@/components/AppHeader";
 import {
   calcularSituacao,
   formatarData,
@@ -82,8 +81,7 @@ function Agenda() {
   const remover = (c: Consulta) => setAExcluir(c);
 
   return (
-    <div className="min-h-dvh bg-paper text-ink">
-      <AppHeader />
+    <div className="bg-paper text-ink">
       <AlertDialog open={!!aExcluir} onOpenChange={(o) => !o && setAExcluir(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>

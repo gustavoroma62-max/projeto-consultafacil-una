@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { AppHeader } from "@/components/AppHeader";
 import { usePerfil, type PrefsAviso } from "@/lib/perfil";
 import { notificar, pedirPermissao } from "@/lib/lembretes";
 import { normalizarCelular } from "@/lib/compartilhar";
@@ -38,7 +37,7 @@ function Avisos() {
     setPerm("Notification" in window ? Notification.permission : "indisponivel");
   }, []);
 
-  if (!f) return (<div className="min-h-dvh bg-paper"><AppHeader /></div>);
+  if (!f) return (<div className="min-h-dvh bg-paper" />);
 
   const set = (p: Partial<PrefsAviso>) => setF({ ...f, ...p });
 
@@ -78,8 +77,7 @@ function Avisos() {
   );
 
   return (
-    <div className="min-h-dvh bg-paper text-ink">
-      <AppHeader />
+    <div className="bg-paper text-ink">
       <main id="conteudo" className="mx-auto max-w-2xl px-4 py-6 pb-28 sm:px-5 sm:py-8">
         <h1 className="mb-1 font-display text-3xl font-semibold">Avisos e lembretes</h1>
         <p className="mb-6 text-base text-muted-ink">Escolha como quer ser lembrado das suas consultas.</p>
