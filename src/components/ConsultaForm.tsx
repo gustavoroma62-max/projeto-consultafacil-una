@@ -54,10 +54,10 @@ export function ConsultaForm({
                 type="button"
                 aria-pressed={v.tipo === t}
                 onClick={() => setV({ ...v, tipo: t })}
-                className="min-h-12 rounded-full px-2 text-base font-semibold ring-1 ring-ink/15 transition hover:bg-ink/5 aria-pressed:bg-brand-soft aria-pressed:text-brand-dark aria-pressed:ring-brand"
+                className="flex min-h-12 min-w-0 items-center justify-center gap-1 rounded-full px-1 text-sm font-semibold sm:text-base ring-1 ring-ink/15 transition hover:bg-ink/5 aria-pressed:bg-brand-soft aria-pressed:text-brand-dark aria-pressed:ring-brand"
               >
-                {v.tipo === t && <span aria-hidden>✓ </span>}
-                {TIPOS[t]}
+                {v.tipo === t && <span aria-hidden className="hidden sm:inline">✓</span>}
+                <span className="truncate">{TIPOS[t]}</span>
               </button>
             ))}
           </div>
