@@ -45,6 +45,7 @@ function EditarConsulta() {
               local: consulta.local,
               exigencias: consulta.exigencias,
               status: consulta.status,
+              tipo: consulta.tipo ?? "consulta",
             }}
             onCancel={() => navigate({ to: "/agenda" })}
             onSubmit={async (v) => {

@@ -74,12 +74,16 @@
   --color-sage: var(--sage);
   --color-sage-soft: var(--sage-soft);
   --color-muted-ink: var(--muted-ink);
-  --font-display: "Space Grotesk", sans-serif;
-  --font-body: "DM Sans", sans-serif;
+  --color-surface-low: var(--surface-low);
+  --color-surface-high: var(--surface-high);
+  --font-display: "Roboto Flex", "Roboto", sans-serif;
+  --font-body: "Roboto Flex", "Roboto", sans-serif;
 }
 
 :root {
-  --radius: 0.625rem;
+  --radius: 0.75rem; /* Material 3: formas arredondadas */
+  --surface-low: oklch(0.935 0.02 150);
+  --surface-high: oklch(0.975 0.012 150);
 
   --brand: oklch(0.483 0.089 180.5);
   --brand-dark: oklch(0.418 0.073 182);
@@ -199,6 +203,8 @@ html { font-size: 115%; }
   --sage: oklch(0.8 0.14 125);
   --sage-soft: oklch(0.32 0.06 125);
   --muted-ink: oklch(0.78 0.012 60);
+  --surface-low: oklch(0.23 0.014 170);
+  --surface-high: oklch(0.28 0.016 170);
   --background: var(--paper);
   --foreground: var(--ink);
 }
