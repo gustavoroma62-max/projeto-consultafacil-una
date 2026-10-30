@@ -1,5 +1,4 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { AppHeader } from "@/components/AppHeader";
 import { ConsultaForm } from "@/components/ConsultaForm";
 import { useConsultas } from "@/lib/consultas";
 
@@ -30,8 +29,7 @@ function NovaConsulta() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-dvh bg-paper text-ink">
-      <AppHeader />
+    <div className="bg-paper text-ink">
       <main id="conteudo" className="mx-auto max-w-2xl px-5 py-8">
         <ConsultaForm
           titulo="Nova consulta"

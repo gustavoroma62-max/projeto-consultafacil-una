@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { AppHeader } from "@/components/AppHeader";
 import {
   calcularSituacao,
   formatarData,
@@ -11,6 +10,7 @@ import {
   useConsultas,
   type Consulta,
   type Status,
+  TIPOS,
 } from "@/lib/consultas";
 import { usePerfil } from "@/lib/perfil";
 import { useLembretesNavegador, textoLembrete } from "@/lib/lembretes";
@@ -82,8 +82,7 @@ function Agenda() {
   const remover = (c: Consulta) => setAExcluir(c);
 
   return (
-    <div className="min-h-dvh bg-paper text-ink">
-      <AppHeader />
+    <div className="bg-paper text-ink">
       <AlertDialog open={!!aExcluir} onOpenChange={(o) => !o && setAExcluir(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -122,7 +121,7 @@ function Agenda() {
         <section className="mb-8">
           <div className="mb-3 flex items-center gap-2">
             <span className="h-4 w-1.5 rounded-full bg-amber" />
-            <h1 className="font-display text-2xl font-semibold sm:text-3xl">Próxima consulta</h1>
+            <h1 className="font-display text-2xl font-semibold sm:text-3xl">Próximo compromisso</h1>
           </div>
 
           {!carregado ? (
@@ -133,6 +132,9 @@ function Agenda() {
               <div className="flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-7">
                 <div className="min-w-0">
                   <div className="mb-2 flex flex-wrap items-center gap-2">
+                    <span className="rounded-full bg-card-paper px-2.5 py-1 text-xs font-bold text-brand-dark">
+                      {TIPOS[proxima.tipo ?? "consulta"]}
+                    </span>
                     <span className="rounded-full bg-card-paper/15 px-2.5 py-1 text-xs font-semibold">
                       {rotuloDia(proxima.data)}
                     </span>
@@ -219,6 +221,7 @@ function Agenda() {
                   } ${atrasada ? "bg-rose-soft/40" : ""}`}
                 >
                   <div className="min-w-0">
+                    <span className="mb-1 inline-block rounded-full bg-brand-soft px-2.5 py-0.5 text-xs font-bold text-brand-dark">{TIPOS[c.tipo ?? "consulta"]}</span>
                     <p className="break-words font-semibold">{c.profissional}</p>
                     <p className="text-xs text-muted-ink">
                       {c.especialidade} · {c.local}

@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { PainelAcessibilidade } from "@/components/PainelAcessibilidade";
 import logo from "@/assets/logo.png";
 
 export const Route = createFileRoute("/")({
@@ -73,6 +74,7 @@ function Landing() {
           ))}
         </div>
       </main>
+      <PainelAcessibilidade />
     </div>
   );
 }

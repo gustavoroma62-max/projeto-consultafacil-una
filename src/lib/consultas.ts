@@ -1,6 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
+export type Tipo = "consulta" | "exame" | "procedimento";
+export const TIPOS: Record<Tipo, string> = { consulta: "Consulta", exame: "Exame", procedimento: "Procedimento" };
+
 export type Status = "agendada" | "realizada" | "cancelada";
 
 export type Consulta = {
@@ -12,6 +15,7 @@ export type Consulta = {
   local: string;
   exigencias: string;
   status: Status;
+  tipo: Tipo;
 };
 
 export type Situacao = "atrasada" | "hoje" | "futura" | Status;
@@ -75,7 +79,7 @@ export function useConsultas() {
     queryFn: async (): Promise<Consulta[]> => {
       const { data, error } = await supabase
         .from("consultas")
-        .select("id, profissional, especialidade, data, hora, local, exigencias, status")
+        .select("id, profissional, especialidade, data, hora, local, exigencias, status, tipo")
         .order("data", { ascending: true })
         .order("hora", { ascending: true });
       if (error) throw error;

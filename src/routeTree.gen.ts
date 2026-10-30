@@ -14,7 +14,9 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AuthenticatedAgendaRouteImport } from './routes/_authenticated/agenda'
+import { Route as AuthenticatedAjudaRouteImport } from './routes/_authenticated/ajuda'
 import { Route as AuthenticatedAvisosRouteImport } from './routes/_authenticated/avisos'
+import { Route as AuthenticatedConfiguracoesRouteImport } from './routes/_authenticated/configuracoes'
 import { Route as AuthenticatedNovaRouteImport } from './routes/_authenticated/nova'
 import { Route as AuthenticatedEditarIdRouteImport } from './routes/_authenticated/editar.$id'
 
@@ -42,11 +44,22 @@ const AuthenticatedAgendaRoute = AuthenticatedAgendaRouteImport.update({
   path: '/agenda',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAjudaRoute = AuthenticatedAjudaRouteImport.update({
+  id: '/ajuda',
+  path: '/ajuda',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAvisosRoute = AuthenticatedAvisosRouteImport.update({
   id: '/avisos',
   path: '/avisos',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedConfiguracoesRoute =
+  AuthenticatedConfiguracoesRouteImport.update({
+    id: '/configuracoes',
+    path: '/configuracoes',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedNovaRoute = AuthenticatedNovaRouteImport.update({
   id: '/nova',
   path: '/nova',
@@ -63,7 +76,9 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
   '/agenda': typeof AuthenticatedAgendaRoute
+  '/ajuda': typeof AuthenticatedAjudaRoute
   '/avisos': typeof AuthenticatedAvisosRoute
+  '/configuracoes': typeof AuthenticatedConfiguracoesRoute
   '/nova': typeof AuthenticatedNovaRoute
   '/editar/$id': typeof AuthenticatedEditarIdRoute
 }
@@ -72,7 +87,9 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
   '/agenda': typeof AuthenticatedAgendaRoute
+  '/ajuda': typeof AuthenticatedAjudaRoute
   '/avisos': typeof AuthenticatedAvisosRoute
+  '/configuracoes': typeof AuthenticatedConfiguracoesRoute
   '/nova': typeof AuthenticatedNovaRoute
   '/editar/$id': typeof AuthenticatedEditarIdRoute
 }
@@ -83,7 +100,9 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/agenda': typeof AuthenticatedAgendaRoute
+  '/_authenticated/ajuda': typeof AuthenticatedAjudaRoute
   '/_authenticated/avisos': typeof AuthenticatedAvisosRoute
+  '/_authenticated/configuracoes': typeof AuthenticatedConfiguracoesRoute
   '/_authenticated/nova': typeof AuthenticatedNovaRoute
   '/_authenticated/editar/$id': typeof AuthenticatedEditarIdRoute
 }
@@ -94,7 +113,9 @@ export interface FileRouteTypes {
     | '/auth'
     | '/reset-password'
     | '/agenda'
+    | '/ajuda'
     | '/avisos'
+    | '/configuracoes'
     | '/nova'
     | '/editar/$id'
   fileRoutesByTo: FileRoutesByTo
@@ -103,7 +124,9 @@ export interface FileRouteTypes {
     | '/auth'
     | '/reset-password'
     | '/agenda'
+    | '/ajuda'
     | '/avisos'
+    | '/configuracoes'
     | '/nova'
     | '/editar/$id'
   id:
@@ -113,7 +136,9 @@ export interface FileRouteTypes {
     | '/auth'
     | '/reset-password'
     | '/_authenticated/agenda'
+    | '/_authenticated/ajuda'
     | '/_authenticated/avisos'
+    | '/_authenticated/configuracoes'
     | '/_authenticated/nova'
     | '/_authenticated/editar/$id'
   fileRoutesById: FileRoutesById
@@ -162,11 +187,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAgendaRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/ajuda': {
+      id: '/_authenticated/ajuda'
+      path: '/ajuda'
+      fullPath: '/ajuda'
+      preLoaderRoute: typeof AuthenticatedAjudaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/avisos': {
       id: '/_authenticated/avisos'
       path: '/avisos'
       fullPath: '/avisos'
       preLoaderRoute: typeof AuthenticatedAvisosRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/configuracoes': {
+      id: '/_authenticated/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/configuracoes'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/nova': {
@@ -188,14 +227,18 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAgendaRoute: typeof AuthenticatedAgendaRoute
+  AuthenticatedAjudaRoute: typeof AuthenticatedAjudaRoute
   AuthenticatedAvisosRoute: typeof AuthenticatedAvisosRoute
+  AuthenticatedConfiguracoesRoute: typeof AuthenticatedConfiguracoesRoute
   AuthenticatedNovaRoute: typeof AuthenticatedNovaRoute
   AuthenticatedEditarIdRoute: typeof AuthenticatedEditarIdRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAgendaRoute: AuthenticatedAgendaRoute,
+  AuthenticatedAjudaRoute: AuthenticatedAjudaRoute,
   AuthenticatedAvisosRoute: AuthenticatedAvisosRoute,
+  AuthenticatedConfiguracoesRoute: AuthenticatedConfiguracoesRoute,
   AuthenticatedNovaRoute: AuthenticatedNovaRoute,
   AuthenticatedEditarIdRoute: AuthenticatedEditarIdRoute,
 }

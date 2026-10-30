@@ -14,7 +14,6 @@ import appCss from "../styles.css?url";
 import { supabase } from "@/integrations/supabase/client";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { AcessibilidadeProvider, scriptInicial } from "@/lib/acessibilidade";
-import { PainelAcessibilidade } from "@/components/PainelAcessibilidade";
 
 function NotFoundComponent() {
   return (
@@ -100,7 +99,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Space+Grotesk:wght@500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,400;8..144,500;8..144,600;8..144,700&display=swap",
       },
     ],
   }),
@@ -146,7 +145,6 @@ function RootComponent() {
         </a>
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
-        <PainelAcessibilidade />
       </AcessibilidadeProvider>
     </QueryClientProvider>
   );

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Consulta, Status } from "@/lib/consultas";
+import { TIPOS, type Consulta, type Status, type Tipo } from "@/lib/consultas";
 
 export type ConsultaFormValues = Omit<Consulta, "id">;
 
@@ -11,6 +11,7 @@ const vazio: ConsultaFormValues = {
   local: "",
   exigencias: "",
   status: "agendada",
+  tipo: "consulta",
 };
 
 export function ConsultaForm({
@@ -44,6 +45,23 @@ export function ConsultaForm({
       </div>
 
       <div className="grid grid-cols-1 gap-4 p-6 sm:grid-cols-2">
+        <fieldset className="sm:col-span-2">
+          <legend className={rotulo}>Tipo de compromisso</legend>
+          <div className="flex flex-wrap gap-2">
+            {(Object.keys(TIPOS) as Tipo[]).map((t) => (
+              <button
+                key={t}
+                type="button"
+                aria-pressed={v.tipo === t}
+                onClick={() => setV({ ...v, tipo: t })}
+                className="flex min-h-12 flex-1 basis-28 items-center justify-center gap-1 rounded-full px-3 text-base font-semibold ring-1 ring-ink/15 transition hover:bg-ink/5 aria-pressed:bg-brand-soft aria-pressed:text-brand-dark aria-pressed:ring-brand"
+              >
+                {v.tipo === t && <span aria-hidden className="hidden sm:inline">✓</span>}
+                <span>{TIPOS[t]}</span>
+              </button>
+            ))}
+          </div>
+        </fieldset>
         <div className="sm:col-span-2">
           <label className={rotulo} htmlFor="profissional">
             Profissional

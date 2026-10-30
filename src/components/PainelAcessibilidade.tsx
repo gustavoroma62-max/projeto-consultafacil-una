@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Settings } from "lucide-react";
 import { ESCALAS, falar, useAcessibilidade, type Tema } from "@/lib/acessibilidade";
 
 const opcaoBase =
@@ -39,9 +40,72 @@ function Alternar({
   );
 }
 
-/** Botão fixo "Acessibilidade" + painel de ajustes, presente em todas as telas. */
-export function PainelAcessibilidade() {
+/** Conteúdo dos ajustes de acessibilidade (usado em Configurações e no botão de engrenagem). */
+export function AjustesAcessibilidade() {
   const { prefs, mudar, restaurar } = useAcessibilidade();
+  const temas: [Tema, string][] = [
+    ["claro", "☀ Claro"],
+    ["escuro", "☾ Noturno"],
+    ["auto", "◐ Auto"],
+  ];
+  return (
+    <div>
+      <fieldset className="mb-5">
+        <legend className="mb-2 text-base font-semibold">Aparência</legend>
+        <div className="grid grid-cols-3 gap-2">
+          {temas.map(([valor, txt]) => (
+            <button key={valor} type="button" aria-pressed={prefs.tema === valor} onClick={() => mudar({ tema: valor })} className={opcaoBase}>
+              {txt}
+            </button>
+          ))}
+        </div>
+      </fieldset>
+
+      <fieldset className="mb-5">
+        <legend className="mb-2 text-base font-semibold">Tamanho das letras</legend>
+        <div className="grid grid-cols-4 gap-2">
+          {ESCALAS.map((e, i) => (
+            <button
+              key={e}
+              type="button"
+              aria-pressed={prefs.fonte === i}
+              aria-label={`Letras em ${e}`}
+              onClick={() => mudar({ fonte: i as 0 | 1 | 2 | 3 })}
+              className={opcaoBase}
+              style={{ fontSize: `${0.9 + i * 0.2}rem` }}
+            >
+              A
+            </button>
+          ))}
+        </div>
+      </fieldset>
+
+      <div className="grid gap-2">
+        <Alternar rotulo="Alto contraste" descricao="Cores mais fortes e bordas marcadas" ligado={prefs.contraste} onChange={(v) => mudar({ contraste: v })} />
+        <Alternar rotulo="Leitura facilitada" descricao="Mais espaço entre letras e linhas" ligado={prefs.espacado} onChange={(v) => mudar({ espacado: v })} />
+        <Alternar rotulo="Sem animações" descricao="Para quem sente tontura com movimento" ligado={prefs.semMovimento} onChange={(v) => mudar({ semMovimento: v })} />
+        <Alternar rotulo="Botões de ouvir" descricao="Mostra 'Ouvir' para ler a consulta em voz alta" ligado={prefs.vozAlta} onChange={(v) => mudar({ vozAlta: v })} />
+        <p className="mt-3 text-sm font-semibold uppercase tracking-wide text-muted-ink">Recomendações</p>
+        <Alternar rotulo="Foco bem visível" descricao="Contorno grosso no item selecionado pelo teclado" ligado={prefs.focoForte} onChange={(v) => mudar({ focoForte: v })} />
+        <Alternar rotulo="Botões maiores" descricao="Áreas de toque ainda maiores, mais fáceis de acertar" ligado={prefs.botoesGrandes} onChange={(v) => mudar({ botoesGrandes: v })} />
+        <Alternar rotulo="Sublinhar links" descricao="Não depender só da cor para achar o que é clicável" ligado={prefs.sublinhar} onChange={(v) => mudar({ sublinhar: v })} />
+        <Alternar rotulo="Vibrar ao tocar" descricao="Pequena vibração no celular ao tocar em botões" ligado={prefs.vibrar} onChange={(v) => mudar({ vibrar: v })} />
+      </div>
+
+      <div className="mt-5 flex flex-wrap gap-2">
+        <button type="button" onClick={() => falar("Os ajustes de acessibilidade estão funcionando. A voz está ativa.")} className="min-h-12 flex-1 rounded-full bg-brand px-4 text-base font-semibold text-card-paper">
+          🔊 Testar voz
+        </button>
+        <button type="button" onClick={restaurar} className="min-h-12 flex-1 rounded-full px-4 text-base font-semibold ring-1 ring-ink/15 hover:bg-ink/5">
+          Restaurar padrão
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/** Engrenagem fixa nas telas públicas (início e login): abre as configurações. */
+export function PainelAcessibilidade() {
   const [aberto, setAberto] = useState(false);
   const painel = useRef<HTMLDivElement>(null);
 
@@ -53,97 +117,25 @@ export function PainelAcessibilidade() {
     return () => window.removeEventListener("keydown", esc);
   }, [aberto]);
 
-  const temas: [Tema, string][] = [
-    ["claro", "☀ Claro"],
-    ["escuro", "☾ Noturno"],
-    ["auto", "◐ Auto"],
-  ];
-
   return (
     <>
       <button
         type="button"
         onClick={() => setAberto(true)}
-        aria-label="Abrir ajustes de acessibilidade"
-        className="fixed bottom-4 right-4 z-40 grid size-14 place-items-center rounded-full bg-ink text-paper shadow-lg ring-2 ring-paper transition hover:scale-105 sm:bottom-6 sm:right-6"
+        aria-label="Abrir configurações"
+        className="fixed right-3 top-3 z-40 grid size-12 place-items-center rounded-full bg-surface-high text-ink shadow-md ring-1 ring-ink/10 transition hover:bg-brand-soft sm:right-5 sm:top-5"
       >
-        <span aria-hidden className="font-display text-xl font-bold">Aa</span>
+        <Settings aria-hidden className="size-6" />
       </button>
-
       {aberto && (
         <div className="fixed inset-0 z-50 flex items-end justify-center bg-ink/40 sm:items-center sm:p-6" onClick={() => setAberto(false)}>
-          <div
-            ref={painel}
-            tabIndex={-1}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="titulo-acess"
-            onClick={(e) => e.stopPropagation()}
-            className="max-h-[92dvh] w-full overflow-y-auto rounded-t-3xl bg-card-paper p-5 text-ink shadow-2xl outline-none sm:max-w-lg sm:rounded-3xl sm:p-6"
-          >
+          <div ref={painel} tabIndex={-1} role="dialog" aria-modal="true" aria-labelledby="titulo-config" onClick={(e) => e.stopPropagation()}
+            className="max-h-[92dvh] w-full overflow-y-auto rounded-t-[28px] bg-card-paper p-5 text-ink shadow-2xl outline-none sm:max-w-lg sm:rounded-[28px] sm:p-6">
             <div className="mb-4 flex items-center justify-between gap-3">
-              <h2 id="titulo-acess" className="font-display text-2xl font-semibold">
-                Acessibilidade
-              </h2>
-              <button
-                type="button"
-                onClick={() => setAberto(false)}
-                className="min-h-12 rounded-full px-4 text-base font-semibold ring-1 ring-ink/15 hover:bg-ink/5"
-              >
-                Fechar
-              </button>
+              <h2 id="titulo-config" className="font-display text-2xl font-semibold">Configurações</h2>
+              <button type="button" onClick={() => setAberto(false)} className="min-h-12 rounded-full px-4 text-base font-semibold ring-1 ring-ink/15 hover:bg-ink/5">Fechar</button>
             </div>
-
-            <fieldset className="mb-5">
-              <legend className="mb-2 text-base font-semibold">Aparência</legend>
-              <div className="grid grid-cols-3 gap-2">
-                {temas.map(([valor, txt]) => (
-                  <button key={valor} type="button" aria-pressed={prefs.tema === valor} onClick={() => mudar({ tema: valor })} className={opcaoBase}>
-                    {txt}
-                  </button>
-                ))}
-              </div>
-            </fieldset>
-
-            <fieldset className="mb-5">
-              <legend className="mb-2 text-base font-semibold">Tamanho das letras</legend>
-              <div className="grid grid-cols-4 gap-2">
-                {ESCALAS.map((e, i) => (
-                  <button
-                    key={e}
-                    type="button"
-                    aria-pressed={prefs.fonte === i}
-                    aria-label={`Letras em ${e}`}
-                    onClick={() => mudar({ fonte: i as 0 | 1 | 2 | 3 })}
-                    className={opcaoBase}
-                    style={{ fontSize: `${0.9 + i * 0.2}rem` }}
-                  >
-                    A
-                  </button>
-                ))}
-              </div>
-            </fieldset>
-
-            <div className="grid gap-2">
-              <Alternar rotulo="Alto contraste" descricao="Cores mais fortes e bordas marcadas" ligado={prefs.contraste} onChange={(v) => mudar({ contraste: v })} />
-              <Alternar rotulo="Leitura facilitada" descricao="Mais espaço entre letras e linhas" ligado={prefs.espacado} onChange={(v) => mudar({ espacado: v })} />
-              <Alternar rotulo="Sem animações" descricao="Para quem sente tontura com movimento" ligado={prefs.semMovimento} onChange={(v) => mudar({ semMovimento: v })} />
-              <Alternar rotulo="Botões de ouvir" descricao="Mostra 'Ouvir' para ler a consulta em voz alta" ligado={prefs.vozAlta} onChange={(v) => mudar({ vozAlta: v })} />
-              <p className="mt-3 text-sm font-semibold uppercase tracking-wide text-muted-ink">Recomendações</p>
-              <Alternar rotulo="Foco bem visível" descricao="Contorno grosso no item selecionado pelo teclado" ligado={prefs.focoForte} onChange={(v) => mudar({ focoForte: v })} />
-              <Alternar rotulo="Botões maiores" descricao="Áreas de toque ainda maiores, mais fáceis de acertar" ligado={prefs.botoesGrandes} onChange={(v) => mudar({ botoesGrandes: v })} />
-              <Alternar rotulo="Sublinhar links" descricao="Não depender só da cor para achar o que é clicável" ligado={prefs.sublinhar} onChange={(v) => mudar({ sublinhar: v })} />
-              <Alternar rotulo="Vibrar ao tocar" descricao="Pequena vibração no celular ao tocar em botões" ligado={prefs.vibrar} onChange={(v) => mudar({ vibrar: v })} />
-            </div>
-
-            <div className="mt-5 flex flex-wrap gap-2">
-              <button type="button" onClick={() => falar("Os ajustes de acessibilidade estão funcionando. A voz está ativa.")} className="min-h-12 flex-1 rounded-full bg-brand px-4 text-base font-semibold text-card-paper">
-                🔊 Testar voz
-              </button>
-              <button type="button" onClick={restaurar} className="min-h-12 flex-1 rounded-full px-4 text-base font-semibold ring-1 ring-ink/15 hover:bg-ink/5">
-                Restaurar padrão
-              </button>
-            </div>
+            <AjustesAcessibilidade />
           </div>
         </div>
       )}
