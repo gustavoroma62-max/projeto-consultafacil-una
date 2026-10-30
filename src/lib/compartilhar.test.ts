@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { linkAcompanhante, linkGoogleAgenda, normalizarCelular } from './compartilhar';
-const consulta = { id: 'test', profissional: 'Ana & Silva', especialidade: 'Clínica', data: '2026-12-31', hora: '23:30:00', local: 'Rua A, 20', exigencias: 'Documento', status: 'agendada' as const };
+const consulta = { id: 'test', profissional: 'Ana & Silva', especialidade: 'Clínica', data: '2026-12-31', hora: '23:30:00', local: 'Rua A, 20', exigencias: 'Documento', status: 'agendada' as const, tipo: 'consulta' as const };
 describe('compartilhar consulta', () => {
   it('preserva data, horário e local no evento e vira o dia no término', () => {
     const url = new URL(linkGoogleAgenda(consulta));
