@@ -12,10 +12,10 @@
 O **ConsultaFácil** nasceu como um protótipo (primeiro modelo do sistema) criado com o [Lovable](https://lovable.dev) a partir de um documento de requisitos do projeto **Una**. A ideia é facilitar a vida de quem precisa ir a consultas, reunindo em um só lugar o agendamento, os lembretes e o contato com quem vai acompanhar a pessoa.
 
 ### Problema que resolve
-**[Descreva em 2–3 linhas, ex.: dificuldade de organizar consultas, esquecimento de horários, falta de acompanhante, baixa acessibilidade nos sistemas atuais.]**
+O Consulta Fácil é como uma agenda virtual, ele organiza todos os compromissos médicos como consultas, exames e cirurgias deixando tudo mais otimizado para o usuário com horários, exigências e alertas para não esquecer, além de poder adicionar um acompanhante para melhor colaboração.
 
 ### Público-alvo
-**[Ex.: pacientes, idosos, pessoas com dificuldade de locomoção, acompanhantes, profissionais de saúde.]**
+É voltado para o público mais idoso e pessoas com necessidades especiais que possuem compromissos de saúde mais frequentes e que não conseguem ornaniza-los sozinhos ou possuem dificuldades.
 
 ---
 
