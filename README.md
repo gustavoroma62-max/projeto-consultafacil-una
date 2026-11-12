@@ -1,7 +1,7 @@
 # ConsultaFácil — Una
 
-> Sistema web para **organizar e acompanhar consultas**, com apoio de acompanhante, lembretes e recursos de acessibilidade. **[Ajuste esta frase se a descrição do seu documento de requisitos for diferente.]**
-
+> Sistema web para **organizar e acompanhar consultas**, com apoio de acompanhante, lembretes e recursos de acessibilidade.
+> 
 🔗 **Aplicação online:** https://projeto-consultafacil-una.lovable.app
 🛠️ **Editor Lovable:** https://lovable.dev/projects/0b55e35e-255c-49c8-91ea-79537611602f
 
